@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Streaming Example</title>
+</head>
+<body>
+    <h1>API Request to /stream_chat</h1>
+    
+    <form id="apiForm">
+        <label for="token">Token:</label>
+        <input type="text" id="token" name="token" value="5EsNwusMNwm3zdrX" required>
+        
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" value="What is NTDP?" required>
+        
+        <button type="submit">Send Request</button>
+    </form>
+
+    <div id="response">
+        <h2>Response:</h2>
+        <pre id="responseText"></pre>
+    </div>
+
+    <script>
+        document.getElementById('apiForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the form from submitting in the traditional way
+            
+            const token = document.getElementById('token').value;
+            const question = document.getElementById('question').value;
+            const responseText = document.getElementById('responseText');
+            
+            responseText.textContent = "";  // Clear previous response
+            
+            fetch('http://8.213.28.149:80/stream_chat', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'text/event-stream',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ token: token, question: question })
+            })
+            .then(response => {
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+                
+                return reader.read().then(function processText({ done, value }) {
+                    if (done) {
+                        console.log("Stream complete");
+                        return;
+                    }
+
+                    // Decode the streamed data and append it to responseText
+                    const textChunk = decoder.decode(value, { stream: true });
+                    responseText.textContent += textChunk;
+
+                    // Continue reading the stream
+                    return reader.read().then(processText);
+                });
+            })
+            .catch(error => {
+                responseText.textContent = 'Error: ' + error;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Arabic fonts */
+@import './arabic-fonts.css';
+
+.font-custom {
+  font-family: "DIN Next LT Arabic", Arial, sans-serif !important;
+}
+/* html,
+:host {
+  font-family: "DM Sans", serif !important;
+} */
+
+html,
+:host {
+  font-family: "DIN Next LT Arabic", Arial, sans-serif !important;
+}
+
+.text-blur-out {
+  animation: text-blur-out 1.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+::-webkit-scrollbar {
+  width: 7px; /* Use width instead of @apply */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Use background instead of @apply */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e0; /* Update color */
+  border-radius: 8px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0; /* Darker color on hover */
+}
+
+.ques-gradient-hover:hover {
+  background: linear-gradient(72.22deg, #192656 1.94%, #e1001d 97.66%);
+  color: #fff !important;
+}
+
+.ques-gradient-active {
+  background: linear-gradient(72.22deg, #192656 1.94%, #e1001d 97.66%);
+  color: #fff !important;
+  transition: all 0.3s ease;
+}
+
+.ques-gradient-active:hover {
+  background: linear-gradient(72.22deg, #e1001d 1.94%, #192656 97.66%);
+}
+
+.ques-gradient-hover:hover .label-text {
+  color: #fff !important;
+}

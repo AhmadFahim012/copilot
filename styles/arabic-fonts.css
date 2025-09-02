@@ -1,0 +1,92 @@
+/* Arabic DIN Fonts - All Weights */
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src: url("/fonts/Fonts_ArbFONTS-DINNextLTArabic-Regular-4.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src: url("/fonts/Fonts_DINNextLTArabic-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src: url("/fonts/Fonts_ArbFONTS-DINNextLTArabic-Bold-4.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src: url("/fonts/Fonts_din-next-lt-arabic-light.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src: url("/fonts/Fonts_DINNextLTArabic-UltraLight.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src: url("/fonts/Fonts_DINNextLTArabic-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src: url("/fonts/Fonts_ArbFONTS-DINNextLTArabic-Heavy2-2.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Utility Classes for Easy Use */
+.font-arabic-ultralight {
+  font-family: "DIN Next LT Arabic", sans-serif;
+  font-weight: 100;
+}
+
+.font-arabic-light {
+  font-family: "DIN Next LT Arabic", sans-serif;
+  font-weight: 200;
+}
+
+.font-arabic-regular {
+  font-family: "DIN Next LT Arabic", sans-serif;
+  font-weight: 400;
+}
+
+.font-arabic-medium {
+  font-family: "DIN Next LT Arabic", sans-serif;
+  font-weight: 500;
+}
+
+.font-arabic-bold {
+  font-family: "DIN Next LT Arabic", sans-serif;
+  font-weight: 700;
+}
+
+.font-arabic-heavy {
+  font-family: "DIN Next LT Arabic", sans-serif;
+  font-weight: 800;
+}
+
+.font-arabic-black {
+  font-family: "DIN Next LT Arabic", sans-serif;
+  font-weight: 900;
+}

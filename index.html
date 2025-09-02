@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agileloop Copilot</title>
+  </head>
+  <body>
+    <script src="dist/copilot.js"></script>
+    <script>
+      // Define tokens for different languages
+      const tokens = {
+        ar: "FUU6rApxilEueYqT", // Arabic token
+        en: "sl2KXr73xtUBdp2n", // English token
+      };
+
+      // Set the language dynamically (you can change this based on user preference or browser setting)
+      const userLanguage = document.documentElement.lang || "ar"; // Default to 'en' if not set
+      // document.documentElement.lang 
+      // Select the appropriate token based on the language
+      const selectedToken = tokens[userLanguage] || tokens.en; // Fallback to English token if language is not recognized
+
+      const options = {
+        token: selectedToken, 
+        language: userLanguage, // "ar" or "en"
+        darkMode: true, // true or false
+        userProfile: "", // optional
+      };
+
+      // Initialize the copilot script after DOM is loaded
+      window.addEventListener("DOMContentLoaded", () => {
+        initCoPilot(options);
+      });
+    </script>
+  </body>
+</html>
