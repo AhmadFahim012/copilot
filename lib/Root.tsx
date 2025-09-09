@@ -22,19 +22,19 @@ function Root({ children, options, containerProps }: RootProps) {
         // Define the fonts with proper URLs
         const fontDefinitions = [
           {
-            family: 'DIN Next LT Arabic',
+            family: 'DIN Next LT Arabic Regular',
             weight: '400',
-            url: `${import.meta.env.BASE_URL}fonts/Fonts_ArbFONTS-DINNextLTArabic-Regular-4.ttf`
+            url: `https://ai.ntdp-sa.com/static/fonts/Fonts_ArbFONTS-DINNextLTArabic-Regular-4.ttf`
           },
           {
-            family: 'DIN Next LT Arabic',
+            family: 'DIN Next LT Arabic Medium',
             weight: '500',
-            url: `${import.meta.env.BASE_URL}fonts/Fonts_DINNextLTArabic-Medium.ttf`
+            url: `https://ai.ntdp-sa.com/static/fonts/Fonts_DINNextLTArabic-Medium.ttf`
           },
           {
-            family: 'DIN Next LT Arabic',
+            family: 'DIN Next LT Arabic Bold',
             weight: '700',
-            url: `${import.meta.env.BASE_URL}fonts/Fonts_ArbFONTS-DINNextLTArabic-Bold-4.ttf`
+            url: `https://ai.ntdp-sa.com/static/fonts/Fonts_ArbFONTS-DINNextLTArabic-Bold-4.ttf`
           }
         ];
 
@@ -54,8 +54,6 @@ function Root({ children, options, containerProps }: RootProps) {
           }
         }
 
-        console.log('Arabic fonts loading completed - DIN Next LT Arabic is now available!');
-        
       } catch (error) {
         console.error('Font loading failed:', error);
       }

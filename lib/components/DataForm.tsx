@@ -84,7 +84,7 @@ export const DataForm:React.FC<compProps> = ({lang, onClose}) => {
         <button
             disabled={loader}
             onClick={handleOnSubmit}
-            className={`mb-5 col-span-1 ques-gradient-active hover:text-[#fff] flex items-center justify-center   text-xs font-normal  rounded-full py-2 text-[#fff]`}
+            className={`mb-5 col-span-1 ques-gradient-active font-arabic-medium hover:text-[#fff] flex items-center justify-center   text-xs font-normal  rounded-full py-2 text-[#fff]`}
             // style={{
             //     background: 'linear-gradient(76.01deg, #4DC7C4 1.87%, #00BBDF 97.73%)'
 

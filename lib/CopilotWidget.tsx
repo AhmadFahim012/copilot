@@ -29,7 +29,7 @@ import * as Tooltip from "@radix-ui/react-tooltip";
 import FileIcon from "@lib/assets/Vector.png";
 import SelectIcon from "@lib/assets/selectIcon.png";
 import { MdAttachFile } from "react-icons/md";
-import { IoClose } from "react-icons/io5";
+import { IoCloseOutline } from "react-icons/io5";
 import { FiUploadCloud } from "react-icons/fi";
 
 export function CopilotWidget() {
@@ -71,10 +71,18 @@ export function CopilotWidget() {
   // const fileUploadPrompt = language === "ar"
   // ? (file ? "يرجى تحميل الملف." : "يرجى اختيار الملف.")
   // : (file ? "Please upload the file." : "Please select the file.");
+  // const dragDropText =
+  //   language === "ar"
+  //     ? "اسحب وأفلت مستندك"
+  //     : "Drag & drop or Choose PDF to upload";
   const dragDropText =
     language === "ar"
-      ? "اسحب وأفلت مستندك"
-      : "Drag & drop or Choose PDF to upload";
+      ? { before: "اسحب وأفلت مستندك", highlight: "", after: "" }
+      : {
+          before: "Drag & drop or ",
+          highlight: "Choose PDF",
+          after: " to upload",
+        };
   const dragDropText2 = language === "ar" ? "تصفح ملفك" : "Attachments (.pdf)";
   const fileUploadText =
     language === "ar"
@@ -670,7 +678,7 @@ Please note that this service is under trial and relies on generative AI technol
                 } py-2 px-5`}
                 style={{
                   background:
-                    "linear-gradient(72.22deg, #192656 1.94%, #E1001D 97.66%)",
+                    "linear-gradient(200deg, rgba(225, 0, 29, 0.8) -20.15%, rgb(25, 38, 86) 30.13%), rgb(25, 38, 87)",
                 }}
               >
                 <div className="h-10 flex justify-between items-center">
@@ -806,10 +814,12 @@ Please note that this service is under trial and relies on generative AI technol
                           
                         `}
                               >
-                                <span className="w-[30px] p-[6px] h-[30px] shrink-0 flex items-center bg-[#fff] justify-center border border-[#464646] rounded-full text-body-dark  text-sm font-normal hover:text-body-dark">
+                                <span className="w-[30px] p-[6px] h-[30px] shrink-0 flex items-center bg-[#fff] justify-center border border-[#464646] rounded-full text-body-dark font-arabic-regular  text-sm font-normal hover:text-body-dark">
                                   {index + 1}
                                 </span>
-                                <span>{item}</span>
+                                <span className="font-arabic-regular">
+                                  {item}
+                                </span>
                               </button>
                             </div>
                           ))}
@@ -893,16 +903,16 @@ Please note that this service is under trial and relies on generative AI technol
               </div>
             </div>
             {open && (
-              <div className="absolute inset-0  backdrop-blur-sm  flex flex-col items-center justify-end">
+              <div className="absolute inset-0  backdrop-blur-[8px] bg-[#41414133]  flex flex-col items-center justify-end">
                 <div
                   onClick={() => handleFileSelect()}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => handleDrop(e)}
-                  className={`w-[95%] mb-[80px] cursor-pointer py-2 text-[#464646] bg-[#fff] flex flex-col justify-center items-center border border-[#464646] rounded-md`}
+                  className={`w-[90%] mb-[60px] cursor-pointer py-2 pb-5 text-[#464646] bg-[#fff] flex flex-col justify-center items-center border border-[#A9A9A9] rounded-[10px]`}
                 >
                   <div
                     className={`flex justify-end items-end min-w-full mb-1 ${
-                      language === "ar" ? "ml-2" : "mr-2"
+                      language === "ar" ? "ml-2" : "mr-6"
                     }`}
                   >
                     <div
@@ -912,7 +922,7 @@ Please note that this service is under trial and relies on generative AI technol
                         setOpen(false);
                       }}
                     >
-                      <IoClose className={`text-[#000]`} />
+                      <IoCloseOutline className={`text-[#464646]`} size={16} />
                     </div>
                   </div>
                   <FiUploadCloud size={25} />
@@ -926,18 +936,28 @@ Please note that this service is under trial and relies on generative AI technol
                           textDirection === "rtl" ? "text-right" : "text-left"
                         }`}
                       >
-                        {dragDropText}
+                        {dragDropText.before}
+                        {dragDropText.highlight && (
+                          <span className="text-gradient font-bold">
+                            {dragDropText.highlight}
+                          </span>
+                        )}
+                        {dragDropText.after}
                       </p>
                       <p
-                        className={` text-[14px] text-[#464646] ${
+                        className={` text-[14px] font-arabic-regular text-[#464646] ${
                           textDirection === "rtl" ? "text-right" : "text-left"
                         }`}
                       >
                         {language === "ar" ? (
                           <>
-                            <span className="text-[#588999]">أو</span>{" "}
+                            <span className="text-[#588999] font-arabic-regular">
+                              أو
+                            </span>{" "}
                             {dragDropText2}{" "}
-                            <span className="text-[#588999]">هنا.</span>
+                            <span className="text-[#588999] font-arabic-regular">
+                              هنا.
+                            </span>
                           </>
                         ) : (
                           <>
@@ -951,7 +971,7 @@ Please note that this service is under trial and relies on generative AI technol
                   )}
                   {file?.name && (
                     <p
-                      className={` text-p[#464646] text-[14px] ${
+                      className={` text-p[#464646] font-arabic-regular text-[14px] ${
                         textDirection === "rtl" ? "text-right" : "text-left"
                       }`}
                     >
@@ -990,7 +1010,7 @@ Please note that this service is under trial and relies on generative AI technol
           } shadow-custom `}
           style={{
             background:
-              "linear-gradient(233.54deg, #E1001D 3.58%, #192656 53.51%)",
+              "linear-gradient(235deg, rgba(225, 0, 29, 0.4) 18.85%, rgb(25, 38, 86) 60.13%), rgb(25, 38, 87)",
           }}
         >
           <BotIcon className="w-7 h-7" />

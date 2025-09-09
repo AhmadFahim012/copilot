@@ -12,13 +12,6 @@ export default defineConfig({
         name: "copilot",
         dir: "dist",
         entryFileNames: "copilot.js",
-        assetFileNames: (assetInfo) => {
-          // Handle font files
-          if (assetInfo.name && /\.(ttf|otf|woff|woff2)$/.test(assetInfo.name)) {
-            return 'fonts/[name].[ext]';
-          }
-          return 'assets/[name].[hash].[ext]';
-        },
       },
     },
     // Copy public fonts to dist

@@ -87,24 +87,11 @@ const config: Config = {
       "gradient": "linear-gradient(to right, #3C38C1, #4d64ff)"
     },
     fontFamily: {
-      // Inter: ["Inter", "sans-serif"],
-      // InterBold: ["InterBold", "sans-serif"],
-      arabic: ['"DIN Next LT Arabic"', 'sans-serif'],
-      'arabic-regular': ['"DIN Next LT Arabic"', 'sans-serif'],
-      'arabic-medium': ['"DIN Next LT Arabic"', 'sans-serif'],
-      'arabic-bold': ['"DIN Next LT Arabic"', 'sans-serif'],
-      'arabic-light': ['"DIN Next LT Arabic"', 'sans-serif'],
-      'arabic-black': ['"DIN Next LT Arabic"', 'sans-serif'],
-      'arabic-ultralight': ['"DIN Next LT Arabic"', 'sans-serif'],
+      "arabic-regular": ['DIN Next LT Arabic Regular', 'sans-serif'],
+      "arabic-medium": ['DIN Next LT Arabic Medium', 'sans-serif'],
+      "arabic-bold": ['DIN Next LT Arabic Bold', 'sans-serif'],
     },
-    fontWeight: {
-      'arabic-ultralight': '100',
-      'arabic-light': '200',
-      'arabic-regular': '400',
-      'arabic-medium': '500',
-      'arabic-bold': '700',
-      'arabic-black': '900',
-    },
+    
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 };

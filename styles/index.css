@@ -3,11 +3,27 @@
 @tailwind utilities;
 
 /* Import Arabic fonts */
-@import './arabic-fonts.css';
+/* @import './arabic-fonts.css'; */
+/* @font-face {
+  font-family: "DIN Next LT Arabic Medium";
+  src: url("https://ai.ntdp-sa.com/static/fonts/Fonts_DINNextLTArabic-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DIN Next LT Arabic";
+  src: url("https://ai.ntdp-sa.com/static/fonts/Fonts_ArbFONTS-DINNextLTArabic-Regular-4.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 .font-custom {
   font-family: "DIN Next LT Arabic", Arial, sans-serif !important;
-}
+} */
 /* html,
 :host {
   font-family: "DM Sans", serif !important;
@@ -56,4 +72,11 @@ html,
 
 .ques-gradient-hover:hover .label-text {
   color: #fff !important;
+}
+
+
+.text-gradient {
+  background: linear-gradient(72.22deg, #192656 1.94%, #E1001D 97.66%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
