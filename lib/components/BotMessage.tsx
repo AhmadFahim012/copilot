@@ -116,7 +116,7 @@ export function BotMessage({
             onClick={onYes}
             className={`${
               darkMode
-                ? "bg-transparent  text-sm font-arabic-regular font-medium ques-gradient-hover hover:text-[#fff] "
+                ? "bg-transparent  text-sm font-arabic-regular font-medium hover:bg-[#192656] hover:text-[#fff] "
                 : "bg-transparent"
             }  ${
               language === "ar" ? "mr-3" : "ml-3"
@@ -128,8 +128,8 @@ export function BotMessage({
             onClick={onNo}
             className={`${
               darkMode
-                ? "bg-transparent  text-sm font-arabic-regular font-medium ques-gradient-hover hover:text-[#fff]"
-                : "bg-transparent"
+                ? "bg-transparent  text-sm font-arabic-regular font-medium hover:bg-[#192656] transition-all duration-200 hover:text-[#fff]"
+                : "bg-transparent hover:bg-[#192656]"
             }  ${
               language === "ar" ? "mr-3" : "ml-3"
             } border border-[#464646]  rounded-full py-[6px] px-3 text-[#464646]`}

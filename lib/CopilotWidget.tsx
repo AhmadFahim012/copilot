@@ -10,6 +10,7 @@ import {
   FaSpinner,
   FaLink,
   FaRegTrashCan,
+  FaStar,
 } from "react-icons/fa6";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -21,16 +22,13 @@ import {
 import { MessageType } from "@lib/types";
 import { useConfigData } from "@lib/contexts/ConfigData";
 import { useScrollToPercentage } from "@lib/hooks";
-import Lottie from "lottie-react";
-import animationData from "./assets/load.json";
 import BotIcon from "./assets/BotIcon";
 import { LogoDark, LogoLight } from "./assets/Logo";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import FileIcon from "@lib/assets/Vector.png";
-import SelectIcon from "@lib/assets/selectIcon.png";
 import { MdAttachFile } from "react-icons/md";
 import { IoCloseOutline } from "react-icons/io5";
 import { FiUploadCloud } from "react-icons/fi";
+import Loader from "./assets/Loader";
 
 export function CopilotWidget() {
   const { isOpen, toggleChat } = useChatToggle(false);
@@ -54,6 +52,8 @@ export function CopilotWidget() {
   const baseURL = import.meta.env.VITE_BASE_API_URL;
   const [qFlag, setQFlag] = useState<Boolean>(false);
   const [fFlag, setFFlag] = useState<Boolean>(false);
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
 
   const modaltext =
     language === "ar"
@@ -65,8 +65,8 @@ export function CopilotWidget() {
       : "Go ahead! I'm happy to assist you further";
   const noText =
     language === "ar"
-      ? "للمساعدة، يمكنكم زيارة الرابط \nhttps://portal-dev.ntdp-sa.com/contact-us\nأو التواصل مع مركز رعاية المستفيدين على الرقم: 920014292"
-      : "For more assistance, \nPlease visit the link:  \nhttps://portal-dev.ntdp-sa.com/contact-us\nor contact NTDP Service Center at: 920014292.";
+      ? "للمساعدة، يمكنكم زيارة الرابط \n(link here)\nأو التواصل مع مركز رعاية المستفيدين على الرقم: 920014292"
+      : "For more assistance, \nPlease visit the link:  \n(link here)\nor contact NTDP Service Center at: 920014292.";
 
   // const fileUploadPrompt = language === "ar"
   // ? (file ? "يرجى تحميل الملف." : "يرجى اختيار الملف.")
@@ -92,10 +92,12 @@ export function CopilotWidget() {
   // Set default values based on language
   const defaultInitialMessage =
     language === "ar"
-      ? `حياك الله، أنا مساعدك الافتراضي من البرنامج الوطني لتنمية قطاع تقنية المعلومات مهمتي الإجابة عن استفسارك وتقديم الدعم اللازم.
+      ? `حياك الله،
+       أنا مساعدك الافتراضي من البرنامج الوطني لتنمية قطاع تقنية المعلومات مهمتي الإجابة عن استفسارك وتقديم الدعم اللازم.
 يرجى الملاحظة أن هذه الخدمة تحت التجربة وتعتمد على تقنيات الذكاء الاصطناعي التوليدي،
 يسعدنا دعمك في تقييم الإجابات لتساهم معنا في تطوير خدماتنا`
-      : `Welcome, I am your virtual assistant from NTDP. My mission is to answer your inquiries and provide the necessary support.
+      : `Welcome, 
+      I am your virtual assistant from NTDP. My mission is to answer your inquiries and provide the necessary support.
 Please note that this service is under trial and relies on generative AI technologies. Your feedback is valuable to help improve our services.`;
 
   const defaultChatPlaceholder =
@@ -181,7 +183,8 @@ Please note that this service is under trial and relies on generative AI technol
   };
 
   const handleQuesClick = (index: number) => {
-    if (index === 3 || index === 4) {
+    console.log("🚀 ~ handleQuesClick ~ index:", index);
+    if (index === 4 || index === 5) {
       const filterMsg = messages.filter(
         (item) =>
           item.type === "bot" &&
@@ -200,6 +203,29 @@ Please note that this service is under trial and relies on generative AI technol
         timeoutMessage,
       ]);
       setQFlag(false);
+      const payload = {
+        rating: index,
+      };
+      fetch(
+        "https://xbo1k7k40b.execute-api.us-east-1.amazonaws.com/dev/feedback",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Success:", data);
+          // setLoader(true);
+          // onClose();
+        })
+        .catch((error) => {
+          console.error("Error:", error); // Handle error if request fails
+          // setLoader(true);
+        });
     } else {
       const timeoutMessage: MessageType = {
         id: uuidv4(),
@@ -651,6 +677,7 @@ Please note that this service is under trial and relies on generative AI technol
     }
   };
 
+  const gradientAngle = textDirection === "rtl" ? "-200deg" : "200deg";
   return (
     <>
       <Tooltip.Provider>
@@ -677,8 +704,7 @@ Please note that this service is under trial and relies on generative AI technol
                   darkMode ? "bg-header-dark" : "bg-header-light"
                 } py-2 px-5`}
                 style={{
-                  background:
-                    "linear-gradient(200deg, rgba(225, 0, 29, 0.8) -20.15%, rgb(25, 38, 86) 30.13%), rgb(25, 38, 87)",
+                  background: `linear-gradient(${gradientAngle}, rgba(225,0,29,0.8) -20.15%, rgb(25,38,86) 30.13%), rgb(25,38,87)`,
                 }}
               >
                 <div className="h-10 flex justify-between items-center">
@@ -686,14 +712,6 @@ Please note that this service is under trial and relies on generative AI technol
                     {darkMode ? <LogoDark /> : <LogoLight />}
                   </div>
                   <div className="flex items-center">
-                    <HiOutlineXMark
-                      className={`w-5 h-5 cursor-pointer ${
-                        darkMode
-                          ? "text-chat-icon-dark"
-                          : "text-chat-icon-light"
-                      }`}
-                      onClick={toggleChat}
-                    />
                     <HiArrowPath
                       className={`w-5 h-5 cursor-pointer ml-2 ${
                         darkMode
@@ -701,6 +719,14 @@ Please note that this service is under trial and relies on generative AI technol
                           : "text-chat-icon-light"
                       }`}
                       onClick={clearConversation}
+                    />
+                    <HiOutlineXMark
+                      className={`w-5 h-5 cursor-pointer ${
+                        darkMode
+                          ? "text-chat-icon-dark"
+                          : "text-chat-icon-light"
+                      }`}
+                      onClick={toggleChat}
                     />
                     {docId && (
                       <FaRegTrashCan
@@ -769,11 +795,11 @@ Please note that this service is under trial and relies on generative AI technol
                           <div
                             className={`${
                               textDirection === "rtl" ? "mr-3" : "ml-3"
-                            }`}
+                            } bg-[#EDEDED] px-3 rounded-t-xl  rounded-br-xl `}
                           >
-                            <Lottie
-                              animationData={animationData}
-                              loop={true}
+                            <Loader
+                              // animationData={animationData}
+                              // loop={true}
                               className="h-[40px] object-cover"
                             />
                           </div>
@@ -793,36 +819,29 @@ Please note that this service is under trial and relies on generative AI technol
                     <div
                       className={` ${
                         language === "ar" ? "mr-[52px]" : "ml-[52px]"
-                      } mt-5 `}
+                      } mt-5 border border-gray-300 py-2 px-4  rounded-full flex items-center justify-between gap-2 w-[80%]`}
                     >
                       {/* <p className="text-[#464646]  text-[12px] font-normal bg-chat-bot-dark-bg p-2.5 px-4 rounded-xl mb-3">
                         {questionHeading}
                       </p> */}
                       <>
-                        {quesArray &&
-                          quesArray.map((item, index) => (
-                            <div className="grid gap-3 grid-cols-1 items-center justify-center w-fit">
-                              <button
-                                onClick={() => handleQuesClick(index)}
-                                key={index}
-                                className={`mb-5  flex items-center gap-2 pe-4 border border-[#464646] transition-all duration-200 rounded-full text-sm font-normal h-[30px] text-[#464646]
-                          ${
-                            darkMode
-                              ? "bg-transparent ques-gradient-hover hover:text-[#fff]"
-                              : "bg-transparent ques-gradient-hover hover:text-[#fff]"
-                          } 
-                          
-                        `}
-                              >
-                                <span className="w-[30px] p-[6px] h-[30px] shrink-0 flex items-center bg-[#fff] justify-center border border-[#464646] rounded-full text-body-dark font-arabic-regular  text-sm font-normal hover:text-body-dark">
-                                  {index + 1}
-                                </span>
-                                <span className="font-arabic-regular">
-                                  {item}
-                                </span>
-                              </button>
-                            </div>
-                          ))}
+                        {[1, 2, 3, 4, 5].map((star, index) => (
+                          <FaStar
+                            key={star}
+                            size={25}
+                            className={`cursor-pointer transition-colors ${
+                              (hover || rating) >= star
+                                ? "text-[#FFCC00]"
+                                : "text-[#C9C7BF]"
+                            }`}
+                            onClick={() => {
+                              handleQuesClick(star);
+                              setRating(star);
+                            }}
+                            onMouseEnter={() => setHover(star)}
+                            onMouseLeave={() => setHover(0)}
+                          />
+                        ))}
                       </>
                     </div>
                   )}
@@ -832,7 +851,11 @@ Please note that this service is under trial and relies on generative AI technol
                         language === "ar" ? "mr-[52px]" : "ml-[52px]"
                       }`}
                     >
-                      <DataForm lang={language} onClose={handleFormSubmit} />
+                      <DataForm
+                        lang={language}
+                        onClose={handleFormSubmit}
+                        rating={rating}
+                      />
                     </div>
                   )}
                 </div>
@@ -938,7 +961,7 @@ Please note that this service is under trial and relies on generative AI technol
                       >
                         {dragDropText.before}
                         {dragDropText.highlight && (
-                          <span className="text-gradient font-bold">
+                          <span className={`${darkMode ? "text-[#588999]" : "text-gradient"} font-bold`}>
                             {dragDropText.highlight}
                           </span>
                         )}
@@ -950,15 +973,21 @@ Please note that this service is under trial and relies on generative AI technol
                         }`}
                       >
                         {language === "ar" ? (
-                          <>
+                          <p className="text-[14px] font-arabic-regular ">
                             <span className="text-[#588999] font-arabic-regular">
                               أو
                             </span>{" "}
-                            {dragDropText2}{" "}
+                            <span
+                              className={`${
+                                darkMode ? "text-[#fff]" : "text-gradient"
+                              } `}
+                            >
+                              {dragDropText2}{" "}
+                            </span>
                             <span className="text-[#588999] font-arabic-regular">
                               هنا.
                             </span>
-                          </>
+                          </p>
                         ) : (
                           <>
                             {/* <span className="text-[#588999]">or</span>{" "} */}
@@ -995,7 +1024,7 @@ Please note that this service is under trial and relies on generative AI technol
                     ref={fileInputRef}
                     onChange={handleFileChange}
                     className="hidden"
-                    accept=".pdf"
+                    accept="application/pdf,.pdf"
                   />
                 </div>
               </div>

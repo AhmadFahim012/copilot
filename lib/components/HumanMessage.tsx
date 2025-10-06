@@ -49,7 +49,7 @@ export function HumanMessage({
           textDirection === "rtl" ? "mr-3" : "ml-3"
         }`}
       /> */}
-      <div className="w-[18px] h-[10px]">
+      <div className="w-[18px] h-[12px]">
         <HumanBubble />
       </div>
     </div>
